@@ -20,4 +20,6 @@ class FindForm(forms.Form):
 
 
 class CheckForm(forms.Form):
-  str = forms.CharField(label='Name', widget=forms.TextInput(attrs={'class':'form-control'}))
+  empty = forms.CharField(label='Empty', empty_value=True, widget=forms.TextInput(attrs={'class':'form-control'}))
+  min = forms.CharField(label='Min', min_length=10, widget=forms.TextInput(attrs={'class':'form-control'}))
+  max = forms.CharField(label='Max', max_length=10, widget=forms.TextInput(attrs={'class':'form-control'}))
