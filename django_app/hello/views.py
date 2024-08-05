@@ -2,8 +2,7 @@ from typing import Any
 from django.shortcuts import render
 from django.shortcuts import redirect
 from .models import Friend
-from .forms import FriendForm
-from .forms import FindForm
+from .forms import FriendForm,FindForm,CheckForm
 from django.views.generic import ListView, DetailView
 
 def find(request):
@@ -75,3 +74,18 @@ class FriendList(ListView):
   
 class FriendDetail(DetailView):
   model = Friend
+
+def check(request):
+  params = {
+    'title':'Hello',
+    'message':'check validation',
+    'form':CheckForm()
+  }
+  if (request.method=='POST'):
+    form = CheckForm(request.POST)
+    params['form'] = form
+    if(form.is_valid()):
+      params['message'] = 'OK'
+    else:
+      params['message'] = 'no good'
+  return render(request, 'hello/check.html', params)
