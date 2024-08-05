@@ -20,6 +20,6 @@ class FindForm(forms.Form):
 
 
 class CheckForm(forms.Form):
-  required = forms.IntegerField(label='Required', widget=forms.NumberInput(attrs={'class':'form-control'}))
-  min = forms.IntegerField(label='Min', min_value=100, widget=forms.NumberInput(attrs={'class':'form-control'}))
-  max = forms.IntegerField(label='Max', max_value=1000, widget=forms.NumberInput(attrs={'class':'form-control'}))
+  data = forms.DateField(label='Data', input_formats=['%d'], widget=forms.DateInput(attrs={'class':'form-control'}))
+  time = forms.TimeField(label='Time', widget=forms.TimeInput(attrs={'class':'form-control'}))
+  datetime = forms.DateTimeField(label='DataTime', widget=forms.DateTimeInput(attrs={'class':'form-control'}))
