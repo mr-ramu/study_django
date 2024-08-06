@@ -6,6 +6,7 @@ from .forms import FriendForm
 # from .forms import FindForm
 from .forms import CheckForm
 from django.views.generic import ListView, DetailView
+from django.core.paginator import Paginator
 
 # def find(request):
 #   if (request.method == "POST"):
@@ -25,51 +26,53 @@ from django.views.generic import ListView, DetailView
 #   return render(request, 'hello/find.html', params)
 
 
-# def index(request):
-#   data = Friend.objects.all()
-#   params = {
-#     'title':'Hello',
-#     'data':data,
-#   }
-#   return render(request, 'hello/index.html', params)
+def index(request, num=1):
+  data = Friend.objects.all()
+  page = Paginator(data, 3)
+  params = {
+    'title':'Hello',
+    'message':'Hello',
+    'data':page.get_page(num),
+  }
+  return render(request, 'hello/index.html', params)
 
-# def create(request):
-#   if (request.method =='POST'):
-#     obj = Friend()
-#     friend = FriendForm(request.POST, instance=obj)
-#     friend.save()
-#     return redirect(to='/hello')
+def create(request):
+  if (request.method =='POST'):
+    obj = Friend()
+    friend = FriendForm(request.POST, instance=obj)
+    friend.save()
+    return redirect(to='/hello')
   
-#   params = {
-#     'title':'Hello',
-#     'form':FriendForm(),
-#   }
-#   return render(request, 'hello/create.html', params)
+  params = {
+    'title':'Hello',
+    'form':FriendForm(),
+  }
+  return render(request, 'hello/create.html', params)
 
-# def edit(request, num):
-#   obj = Friend.objects.get(id=num)
-#   if (request.method == 'POST'):
-#     friend = FriendForm(request.POST, instance=obj)
-#     friend.save()
-#     return redirect(to='/hello')
-#   params = {
-#     'title':'Hello',
-#     'id':num,
-#     'form':FriendForm(instance=obj),
-# }
-#   return render(request, 'hello/edit.html', params)
+def edit(request, num):
+  obj = Friend.objects.get(id=num)
+  if (request.method == 'POST'):
+    friend = FriendForm(request.POST, instance=obj)
+    friend.save()
+    return redirect(to='/hello')
+  params = {
+    'title':'Hello',
+    'id':num,
+    'form':FriendForm(instance=obj),
+}
+  return render(request, 'hello/edit.html', params)
 
-# def delete(request, num):
-#   friend = Friend.objects.get(id=num)
-#   if (request.method == 'POST'):
-#     friend.delete()
-#     return redirect(to='/hello')
-#   params = {
-#     'title':'Hello',
-#     'id':num,
-#     'obj':friend,
-#   }
-#   return render(request, 'hello/delete.html', params)
+def delete(request, num):
+  friend = Friend.objects.get(id=num)
+  if (request.method == 'POST'):
+    friend.delete()
+    return redirect(to='/hello')
+  params = {
+    'title':'Hello',
+    'id':num,
+    'obj':friend,
+  }
+  return render(request, 'hello/delete.html', params)
 
 class FriendList(ListView):
   model = Friend
