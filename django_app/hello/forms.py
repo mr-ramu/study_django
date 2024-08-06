@@ -5,6 +5,12 @@ class FriendForm(forms.ModelForm):
   class Meta:
     model = Friend
     fields = ['name', 'mail', 'gender', 'age', 'birthday']
+    widgets = {
+      'name':forms.TextInput(attrs={'class':'form-control'}),
+      'mail':forms.EmailInput(attrs={'class':'form-control'}),
+      'age':forms.NumberInput(attrs={'class':'form-control'}),
+      'birthday':forms.DateInput(attrs={'class':'form-control'}),
+    }
 
 
 # class FriendForm(forms.Form):
@@ -14,9 +20,6 @@ class FriendForm(forms.ModelForm):
 #   age = forms.IntegerField(label='Age', widget=forms.NumberInput(attrs={'class':'form-control'}))
 #   birthday = forms.DateField(label='Birth', widget=forms.DateInput(attrs={'class':'form-control'}))
 
-
-class FindForm(forms.Form):
-  find = forms.CharField(label='Find', required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
 
 
 class CheckForm(forms.Form):
