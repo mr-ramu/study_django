@@ -21,4 +21,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello/', include('hello.urls')), #helloフォルダ内のurls.pyを読み込んでいる
+    path('sns/', include('sns.urls')),
 ]
